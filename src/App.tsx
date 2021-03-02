@@ -1,25 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route } from "react-router-dom";
+import AuthPage from './pages/AuthPage';
+import GanListPage from './pages/GanList';
+import PersonalGansPage from './pages/PersonalGans';
+import SearchGanPage from './pages/SearchPage';
+
+const user = localStorage.getItem('user');
+if(user){
+    (window as any).authenicated = true
+}else {
+  (window as any).authenicated = false
+}
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Route path="/auth" component={AuthPage} />
+      <Route path="/public-gans" component={GanListPage} />
+      <Route path="/my-gans" exact component={PersonalGansPage} />
+      <Route path="/" exact component={SearchGanPage} />
+    </BrowserRouter>
   );
 }
 
